@@ -1,0 +1,20 @@
+
+public class PrintJob {
+	private int id = 0;
+	private int size;
+	private int waitingTime;
+	private int arrivalTime;
+	private int priority;
+	
+	public PrintJob( int size, int waitingTime, int arrivalTime, int priority ){
+		this.id = id++;
+		if((size>=0)&&(size<=127)){
+			this.size=size;
+		}
+		else
+		this.waitingTime= waitingTime;
+		this.arrivalTime= arrivalTime;
+		this.priority = priority;
+		}
+	
+}

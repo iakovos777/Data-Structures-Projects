@@ -1,0 +1,197 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Thiseas {
+	public static void main( String args[] ){
+		
+		StringStackImpl stackTrace = new StringStackImpl();
+		String path;
+		int row;
+		int column;
+		int i;
+		int j;
+		int counter =0;
+		int c = 0;
+		
+		File f = null;
+		BufferedReader reader = null;
+		String line;
+		try {
+			f = new File(path);
+		} catch (NullPointerException e) {
+			System.err.println("File not found.");
+		}
+		try {
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+		} catch (FileNotFoundException e) {
+			System.err.println("Error opening file!");
+		}
+		try {
+			line = reader.readLine();
+			while((line ==null)&&(counter <10)){
+				counter++;
+				line = reader.readLine();
+			}
+			if(line != null){
+				StringTokenizer str = new StringTokenizer(line);
+				String token = str.nextToken();
+				row = Integer.parseInt(token) ;
+				column = Integer.parseInt(str.nextToken());
+				line = reader.readLine();
+				char[][] labyrinth = new char[row][column];
+				 str = new StringTokenizer(line);
+				token = str.nextToken();
+				i = Integer.parseInt(token) ;
+				j = Integer.parseInt(str.nextToken());
+				labyrinth[i][j]= 'E';
+				line = reader.readLine();
+				while(line != null){
+					 str = new StringTokenizer(line);
+					 token = str.nextToken();
+					 for(int x=0;x<column;x++){
+						 labyrinth[c][x]=token.charAt(0);
+						 token = str.nextToken();
+					 }
+					 c++;
+					 line = reader.readLine();
+				}
+				char a=(char)i;
+				char b= (char)j;
+				String d =  Character.toString(a)+","+  Character.toString(b);
+				stackTrace.push(d);
+				boolean exit = false;
+				
+				while(exit==false){
+					if((labyrinth[i-1][j]=='0')&&(i-1>=0)){
+						 i=i-1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+						}
+						
+			
+			        }
+					else if((labyrinth[i+1][j]=='0')&&(i+1<=row)){
+						 i=i+1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+						}
+					}
+					else if((labyrinth[i][j-1]=='0')&&(j-1>=0)){
+						 j=j-1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+						}
+					}
+					else if((labyrinth[i][j+1]=='0')&&(j+1<=column)){
+						 j=j+1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+						}
+					}
+					else if(stackTrace.isEmpty()==false){
+		
+							stackTrace.pop();
+							if(stackTrace.isEmpty()==false){
+								d=stackTrace.peek();
+								i=Character.getNumericValue(d.charAt(0));
+								j = Character.getNumericValue(d.charAt(2));
+							}
+							else{
+								exit = true ;
+								System.out.println("There is not exit from your maze ");
+								
+							}
+								
+							
+					}
+					else if(stackTrace.isEmpty()==true){
+						exit = true ;
+						System.out.println("There is not exit from your maze ");
+					}		
+								
+							
+							
+							
+				}
+			}
+			else{
+				System.out.println("Empty file");
+			}
+				
+			
+		}catch (IOException e) {
+			System.out.println(" Sudden end ");
+			
+		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			System.err.println("Error closing file.");
+		}
+		
+		
+				
+			
+			
+			
+
+	}
+}
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+

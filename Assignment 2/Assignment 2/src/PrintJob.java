@@ -1,0 +1,67 @@
+
+
+public class PrintJob implements Comparable<PrintJob> {
+	private int id = 0;
+	private int size;
+	private int waitingTime;
+	private int arrivalTime;
+	private int priority;
+	
+	public PrintJob(){
+		
+	}
+	
+	public PrintJob(  int arrivalTime, int size ){
+		this.id = id++;
+		if((size>=1)&&(size<=128)&&(size%1==0)){
+			this.size=size;
+			
+		}
+		else{
+			throw new IllegalArgumentException("Wrong size! Size must be an integer between 1-128.");
+			
+		}
+		this.waitingTime= 0;
+		this.arrivalTime= arrivalTime;
+	    this.priority=this.size-1;
+			
+		
+		
+	}
+	 public  int getId() {
+	        return id;
+	    }
+
+	    public void setPriority(int priority){
+	        this.priority= priority;
+	    }
+	    public  int  getSize() {
+	        return size;
+	    }
+
+	    public void setWaitingTime(int waitingTime){
+	        this.waitingTime = waitingTime;
+	    }
+	    
+	    public  int getWaitingTime() {
+	        return waitingTime;
+	    }
+
+	    
+	    public  int getPriority() {
+	        return priority;
+	    }
+
+	    
+	    public  int getArrivalTime() {
+	        return arrivalTime;
+	    }
+	    
+	    public int compareTo(PrintJob other){
+	    	return Integer.compare(this.getPriority(), other.getPriority());
+	    }
+
+	    
+	
+
+}

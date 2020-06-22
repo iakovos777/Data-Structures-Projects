@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Thiseas {
+	public static void main( String args[] ){
+		
+		StringStackImpl stackTrace = new StringStackImpl();
+		String path;
+		int row;
+		int column;
+		int i;
+		int j;
+		int counter =0;
+		
+		
+		File f = null;
+		BufferedReader reader = null;
+		String line;
+		try {
+			f = new File(path);
+		} catch (NullPointerException e) {
+			System.err.println("File not found.");
+		}
+		try {
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+		} catch (FileNotFoundException e) {
+			System.err.println("Error opening file!");
+		}
+		try {
+			line = reader.readLine();
+			while((line ==null)&&(counter <10)){
+				counter++;
+				line = reader.readLine();
+			}
+			if(line != null){
+				StringTokenizer str = new StringTokenizer(line);
+				String token = str.nextToken();
+				row = Integer.parseInt(token) ;
+				column = Integer.parseInt(str.nextToken());
+				line = reader.readLine();
+				
+				
+			
+			}
+			else{
+				System.out.println("Empty file");
+			}
+				
+			
+		}catch (){
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

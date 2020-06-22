@@ -1,0 +1,59 @@
+import java.io.PrintStream;
+import java.util.NoSuchElementException;
+
+
+public class StringStackImpl {
+	
+	private Node head;
+	private class Node {
+		String item;
+		Node next;
+		private	Node(String item, Node next) {
+			     this.item = item; 
+			     this.next = next; 
+			}
+	}
+	StringStackImpl(int maxN) { 
+		head = null; 
+	}
+	public boolean isEmpty() { 
+		return (head == null); 
+	}
+	public void push(String item) { 
+		head = new Node(item, head);
+	}
+	public String pop() throws NoSuchElementException{ 
+		if(!isEmpty()){
+			String str = head.item; 
+			Node t = head.next;
+			head = t; 
+			return str; 
+		}
+		else{
+			throw new NoSuchElementException("your stack is empty you can't pop");
+		}
+	}
+	 
+	
+	public String peek() throws NoSuchElementException{
+		if(!isEmpty()){
+			return head.item;
+		}
+		else{
+			throw new NoSuchElementException("your stack is empty");
+		}
+	}
+	
+	public void printStack(PrintStream stream){
+		
+	}
+
+ 	
+	public int size(){
+		
+	}
+
+		
+	
+}
+

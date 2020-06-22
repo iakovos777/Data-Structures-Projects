@@ -1,0 +1,105 @@
+
+public class TwoDTree {
+	private int N ;
+	private TreeNode head;
+	private class TreeNode {
+		private Point p;
+		private TreeNode l, r;
+		private TreeNode(Point p){
+			this.p=p;
+			l=null;
+			r=null;
+		}
+	}
+	public TwoDTree(){
+		head = null;
+		N=0;
+		
+	} 
+	public boolean isEmpty(){
+		if(N==0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	} 
+	public int size(){
+		return N;
+	} 
+	public void insert(Point p){
+		 int level = 1;
+		 head = insertNode(head, p,level);
+	}
+	private TreeNode insertNode(TreeNode h, Point p,int level){
+		if (h == null) return new TreeNode(p);
+		int levol = level/2;
+		if ((levol%2==1)||(levol==0)){
+			if(p.x()>h.p.x()){
+				level++;
+				h.r = insertNode(h.r, p,level);
+			}
+			else{
+				level++;
+				h.l = insertNode(h.l, p,level);
+			}
+		}
+		else{
+			if(p.y()>h.p.y()){
+				level++;
+				h.r = insertNode(h.r, p,level);
+			}
+			else{
+				level++;
+				h.l = insertNode(h.l, p,level);
+			}
+			
+		}
+		return h; 
+		 
+	}
+	
+	public boolean search(Point p){
+		int level = 1;
+		return searchNode(head,p,level);
+	} 
+	
+	private boolean searchNode(TreeNode h, Point p,int level){
+		if(h==null){ 
+			return false;
+		}
+		if ((p.x()== h.p.x())&&(p.y()==h.p.y())){
+			return true;
+		}
+		 
+	    int levol = level/2;
+		if ((level%2==1)||(level==0)){
+			if(p.x()>h.p.x()){
+				h.r = insertNode(h.r, p);
+			}
+			else{
+				h.l = insertNode(h.l, p);
+			}
+		}
+		else{
+			if(p.y()>h.p.y()){
+				h.r = insertNode(h.r, p);
+			}
+			else{
+				h.l = insertNode(h.l, p);
+			}
+			
+		}
+		
+	}
+	
+	public Point nearestNeighbor(Point p){
+		
+	} // point in the tree that is
+	//closest to p
+	//(null if tree is empty)
+	public List<Point> rangeSearch(Rectangle rect){
+		
+	} // Returns a list
+	// with the Points that are contained in the rectangle
+}

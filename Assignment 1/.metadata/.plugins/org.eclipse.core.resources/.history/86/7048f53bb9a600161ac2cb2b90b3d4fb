@@ -1,0 +1,38 @@
+import java.io.PrintStream;
+import java.util.NoSuchElementException; 
+
+
+public class StringQueueImpl {
+
+		private Node head, tail;
+		private class Node {
+				private	String item;
+				private	Node next;
+				Node(String item) {
+					 this.item = item;
+				   	next = null; 
+										}
+		}
+		StringQueueImpl(int max) {
+						head = null; 
+						tail = null; 
+		}
+		public boolean isEmpty() {
+					return (head == null); 
+		}
+		
+		public void put(String item) {
+			Node node = tail;
+			tail = new Node(item);
+			if (isEmpty()) head = tail;
+			else node.next = tail; 
+		}
+		
+		public String get() {
+			String str = head.item;
+			Node node = head.next;
+			head = node;
+			return str; 
+		} 
+}
+

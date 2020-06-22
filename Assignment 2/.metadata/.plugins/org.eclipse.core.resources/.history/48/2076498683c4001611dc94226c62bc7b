@@ -1,0 +1,65 @@
+
+public class PrintJob {
+	private int id = 0;
+	private int size;
+	private int waitingTime;
+	private int arrivalTime;
+	private int priority;
+	
+	public PrintJob( int size, int arrivalTime ){
+		this.id = id++;
+		if((size>=1)&&(size<=128)){
+			this.size=size;
+			
+		}
+		else{
+			System.out.println("Wrong size! Size must be an integer between 0-127.");
+			
+		}
+		this.waitingTime= 0;
+		this.arrivalTime= arrivalTime;
+		if((size>=1)&&(size<=128)){
+			this.priority=this.size-1;
+			
+		}
+		else{
+			System.out.println("Wrong size! Size must be an integer between 0-127.");
+			
+		}
+		
+	}
+	 public  int getId() {
+	        return id;
+	    }
+
+	    public void setPriority(int priority){
+	        this.priority= priority;
+	    }
+	    public  int  getSize() {
+	        return size;
+	    }
+
+	    public void setWaitingTime(int waitingTime){
+	        this.waitingTime = waitingTime;
+	    }
+	    
+	    public  int getWaitingTime() {
+	        return waitingTime;
+	    }
+
+	    
+	    public  int getPriority() {
+	        return priority;
+	    }
+
+	    
+	    public  int getArrivalTime() {
+	        return arrivalTime;
+	    }
+	    
+	    
+
+	    
+	
+
+}

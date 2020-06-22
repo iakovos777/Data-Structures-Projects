@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+
+
+
+public class AlgorithmB {
+	
+	
+	
+	public void loadFile(String path) {
+        File f = null;
+        BufferedReader reader = null;
+        String line = null;
+        int T = 0;
+        
+
+        try {
+            f = new File(path);
+        } catch (NullPointerException e) {
+            System.err.println("File not found.");
+        }
+        try {
+        	reader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+
+            
+        } catch (FileNotFoundException e) {
+            System.err.println("Error opening file!");
+        }
+        try {
+        	line = reader.readLine();
+			while( line !=  null ){
+        
+				String [] tokens = line.split("\\s+");
+				int t = Integer.parseInt(tokens[0]);
+				int m = Integer.parseInt(tokens[1]);
+				PrintJob pj = new PrintJob(t,m);
+				List PJlist = new List();
+				PJlist.insertAtBack(pj);
+				line = reader.readLine();
+            }
+			
+			
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        } catch (IOException e) {
+            System.out.println("Line  Sudden end.");
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Error closing file.");
+        }
+    }
+
+}

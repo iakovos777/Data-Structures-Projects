@@ -1,0 +1,199 @@
+
+public class TwoDTree {
+	private int N ;
+	private TreeNode head;
+	private class TreeNode {
+		private Point p;
+		private TreeNode l, r;
+		private TreeNode(Point p){
+			this.p=p;
+			l=null;
+			r=null;
+		}
+	}
+	public TwoDTree(int N){
+		head = null;
+		this.N=N;
+		
+	} 
+	public boolean isEmpty(){
+		if(N==0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	} 
+	public int size(){
+		return N;
+	} 
+	public void insert(Point p){
+		 int level = 1;
+		 head = insertNode(head, p,level);
+	}
+	private TreeNode insertNode(TreeNode h, Point p,int level){
+		if (h == null) return new TreeNode(p);
+		
+		if ((level%2==1)||(level==1)){
+			if(p.x()>h.p.x()){
+				level++;
+				h.r = insertNode(h.r, p,level);
+			}
+			else{
+				level++;
+				h.l = insertNode(h.l, p,level);
+			}
+		}
+		else{
+			if(p.y()>h.p.y()){
+				level++;
+				h.r = insertNode(h.r, p,level);
+			}
+			else{
+				level++;
+				h.l = insertNode(h.l, p,level);
+			}
+			
+		}
+		return h; 
+		 
+	}
+	
+	public boolean search(Point p){
+		int level = 1;
+		return searchNode(head,p,level);
+	} 
+	
+	private boolean searchNode(TreeNode h, Point p,int level){
+		if(h==null){ 
+			return false;
+		}
+		if ((p.x()== h.p.x())&&(p.y()==h.p.y())){
+			return true;
+		}
+		 
+	   
+		if ((level%2==1)||(level==1)){
+			if(p.x()>h.p.x()){
+				level++;
+				return searchNode(h.r, p,level);
+			}
+			else{
+				level++;
+				return searchNode(h.l, p,level);
+			}
+		}
+		else{
+			if(p.y()>h.p.y()){
+				level++;
+				return searchNode(h.r, p,level);
+			}
+			else{
+				level++;
+				return searchNode(h.l, p, level);
+			}
+			
+		}
+		
+	}
+	
+	public Point nearestNeighbor(Point p){
+		if(isEmpty()){
+			return null;
+		}
+		else{
+			double mindist=head.p.distanceTo(p);
+			int level = 1;
+			return nearest(head,p,level,mindist,null,head);
+		}
+	} // point in the tree that is
+	//closest to p
+	//(null if tree is empty)
+	public Point nearest(TreeNode h, Point p, int level, double mindist, TreeNode previous, TreeNode minnode){
+		
+		if(h==null){
+			return minnode.p;
+		}
+		if ((p.x()== h.p.x())&&(p.y()==h.p.y())){
+			return h.p;
+		}
+		 
+	    if(level/2==0){
+	    	Rectangle rectl = new Rectangle(0,h.p.x(),0,100);
+			Rectangle rectr = new Rectangle(h.p.x(),100,0,100);
+			if(mindist>=rectl.distanceTo(p)){
+				if(mindist > h.l.p.distanceTo(p)){
+					mindist = h.l.p.distanceTo(p);
+					minnode = h.l;
+				}
+				level++;
+				nearest(h.l,p,level,mindist,h,minnode);
+			}
+		    if(mindist>=rectr.distanceTo(p)){
+				if(mindist > h.r.p.distanceTo(p)){
+					mindist = h.r.p.distanceTo(p);
+					minnode = h.r;
+				}
+				level++;
+				nearest(h.r,p,level,mindist,h,minnode);
+			}
+			else{
+				return h.p;
+			}
+	    }
+		else if (level%2==1){
+			Rectangle rectl = new Rectangle(0,h.p.x(),0,previous.p.y());
+			Rectangle rectr = new Rectangle(h.p.x(),100,previous.p.y(),100);
+			if(mindist>=rectl.distanceTo(p)){
+				if(mindist > h.l.p.distanceTo(p)){
+					mindist = h.l.p.distanceTo(p);
+					minnode = h.l;
+				}
+				level++;
+				nearest(h.l,p,level,mindist,h,minnode);
+			}
+		    if(mindist>=rectr.distanceTo(p)){
+				if(mindist > h.r.p.distanceTo(p)){
+					mindist = h.r.p.distanceTo(p);
+					minnode = h.r;
+				}
+				level++;
+				nearest(h.r,p,level,mindist,h,minnode);
+			}
+			else{
+				return h.p;
+			}
+		}
+		else{
+			Rectangle rectl = new Rectangle(0,previous.p.x(),0,h.p.y());
+			Rectangle rectr = new Rectangle(previous.p.x(),100,h.p.y(),100);
+			if(mindist>=rectl.distanceTo(p)){
+				if(mindist > h.l.p.distanceTo(p)){
+					mindist = h.l.p.distanceTo(p);
+					minnode = h.l;
+				}
+				level++;
+				nearest(h.l,p,level,mindist,h,minnode);
+			}
+		    if(mindist>=rectr.distanceTo(p)){
+				if(mindist > h.r.p.distanceTo(p)){
+					mindist = h.r.p.distanceTo(p);
+					minnode = h.r;
+				}
+				level++;
+				nearest(h.r,p,level,mindist,h,minnode);
+			}
+			else{
+				return h.p;
+			}
+		}
+	    return minnode.p;
+	
+	}
+	
+	
+	public List<Point> rangeSearch(Rectangle rect){
+		
+	} // Returns a list
+	// with the Points that are contained in the rectangle
+}

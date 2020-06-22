@@ -1,0 +1,276 @@
+import java.io.*;
+import java.util.*;
+
+
+
+public class Thiseas {
+	public static void main( String args[] ){
+		
+		StringStackImpl stackTrace = new StringStackImpl();
+		String path;
+		int row;
+		int column;
+		int i;
+		int j;
+		int counter =0;
+		int c = 0;
+		boolean m = true ;
+		path = args[0].trim().substring(13);
+		File f = null;
+		BufferedReader reader = null;
+		String line;
+		try {
+			f = new File(path);
+		} catch (NullPointerException e) {
+			System.err.println("File not found.");
+		}
+		try {
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+		} catch (FileNotFoundException e) {
+			System.err.println("Error opening file!");
+		}
+		try {
+			line = reader.readLine();
+			while((line ==null)&&(counter <10)){
+				counter++;
+				line = reader.readLine();
+			}
+			if(line != null){
+				StringTokenizer str = new StringTokenizer(line);
+				String token = str.nextToken();
+				row = Integer.parseInt(token) ;
+				column = Integer.parseInt(str.nextToken());
+				line = reader.readLine();
+				char[][] labyrinth = new char[row][column];
+				str = new StringTokenizer(line);
+				token = str.nextToken();
+				i = Integer.parseInt(token) ;
+				j = Integer.parseInt(str.nextToken());
+				labyrinth[i][j]= 'E';
+				line = reader.readLine();
+				while((line != null)&&(m==true)){
+					 if(c>=row){
+						 m=false;
+						 System.out.println("There is more rows that it should be.Wrong!!! End of program!!!");
+					 }
+					 else{
+						 str = new StringTokenizer(line);
+						 token = str.nextToken();
+						 token = token.replaceAll("\\s+","");
+						 int x=0;
+						 while((x<column)&&(str.hasMoreTokens())){
+							 labyrinth[c][x]=token.charAt(0);
+							 x++;
+							 token = str.nextToken();
+							 token = token.replaceAll("\\s+","");
+							 
+						 }
+						 token = str.nextToken();
+						 token = token.replaceAll("\\s+","");
+						 if(token!=null){
+							 System.out.println("There is more columns that it should be. Wrong on program.End of program!  "); 
+							 m= false;
+						 }
+						 else{
+							 m=true;
+						 }
+					 }
+					 c++;
+					 line = reader.readLine();
+					 
+				}
+				int s=0;
+				
+				if(m==true){
+					if(labyrinth[i][j]!='E'){
+						for(int k=0;k<row;k++){
+							for(int l=0;l<column;l++){
+								if(labyrinth[k][l]=='E'){
+									s++;
+									i=k;
+									j=l;							
+								}
+								else{
+									m=false;
+								}
+							}
+						}
+						if(m==false){
+							System.out.println("There is not entry in your maze. Wrong  coordinates of entry");
+						
+						}
+						else if ((m==true)&&(s==1)){
+							System.out.println("Wrong coordinates of entry but there is an entry in your maze");
+						}
+						else if (s>1){
+							System.out.println("There is more than one entry in your maze.You cannot proceed to run your program");
+							m=false;
+						}
+				
+					}
+					
+				}
+				
+				if(m==true){
+					for(int k=0;k<row;k++){
+						for(int l=0;l<column;l++){
+							if((labyrinth[k][l]!='1')||(labyrinth[k][l]!='0')||(labyrinth[k][l]!='E')){
+								m=false;
+								System.out.println("Your maze's elements must be one or zero or one E.Some elements are not one or zero or E. Wrong maze!");
+								}
+							}
+						}
+				}
+				
+				
+				
+				
+				
+				
+				char a=(char)i;
+				char b= (char)j;
+				String d =  Character.toString(a)+","+  Character.toString(b);
+				stackTrace.push(d);
+				boolean exit = false;
+				
+				while((exit==false)&&(m==true)){
+					if((labyrinth[i-1][j]=='0')&&(i-1>=0)){
+						 i=i-1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+							stackTrace.printStack(System.out );
+							System.out.println();
+						}
+						
+			
+			        }
+					else if((labyrinth[i+1][j]=='0')&&(i+1<=row)){
+						 i=i+1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+							stackTrace.printStack(System.out );
+							System.out.println();
+						}
+					}
+					else if((labyrinth[i][j-1]=='0')&&(j-1>=0)){
+						 j=j-1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+							stackTrace.printStack(System.out );
+							System.out.println();
+						}
+					}
+					else if((labyrinth[i][j+1]=='0')&&(j+1<=column)){
+						 j=j+1;
+						 a=(char)i;
+						 b= (char)j;
+						 d =  Character.toString(a)+","+  Character.toString(b);
+						stackTrace.push(d);
+						labyrinth[i][j]= 'X';
+						if(((i==1)||(i==row))&&((j==1)||(j==column))){
+							exit = true;
+							System.out.println("You find the exit of maze! You are free");
+							stackTrace.printStack(System.out );
+							System.out.println();
+						}
+					}
+					else if(stackTrace.isEmpty()==false){
+		
+							stackTrace.pop();
+							if(stackTrace.isEmpty()==false){
+								d=stackTrace.peek();
+								i=Character.getNumericValue(d.charAt(0));
+								j = Character.getNumericValue(d.charAt(2));
+							}
+							else{
+								exit = true ;
+								System.out.println("There is not exit from your maze ");
+								
+							}
+								
+							
+					}
+					else if(stackTrace.isEmpty()==true){
+						exit = true ;
+						System.out.println("There is not exit from your maze ");
+					}		
+								
+							
+							
+							
+				}
+			}
+			else{
+				System.out.println("Empty file");
+			}
+				
+			
+		}catch (IOException e) {
+			System.out.println(" Sudden end ");
+			
+		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			System.err.println("Error closing file.");
+		}
+		
+		
+				
+			
+			
+			
+
+	}
+}
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
